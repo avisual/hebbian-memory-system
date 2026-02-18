@@ -78,7 +78,7 @@ Rules and corrections rank higher; vague "general" entries rank lower.
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/hebbian-memory-system.git
+git clone https://github.com/avisual/hebbian-memory-system.git
 cd hebbian-memory-system
 npm install
 ```
@@ -193,6 +193,24 @@ hebbian-memory-system/
 ```
 
 ## Configuration
+
+### Database Location
+
+By default, the database is stored at `~/.hebbian/hebbian.db`. You can override this by setting the `HEBBIAN_DB_PATH` environment variable:
+
+```bash
+export HEBBIAN_DB_PATH=/path/to/your/hebbian.db
+```
+
+### OpenClaw Integration
+
+The extractors expect the standard OpenClaw directory structure:
+- Session transcripts: `~/.openclaw/agents/main/sessions/`
+- Memory files: `~/.openclaw/workspace/memory/`
+
+If your OpenClaw is in a different location, you can customize the extractor paths in the scripts.
+
+### Config File
 
 Create `~/.hebbian/config.json`:
 
@@ -316,7 +334,7 @@ Contributions welcome! Key areas:
 
 If you find this useful, consider sponsoring development:
 
-[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-pink.svg)](https://github.com/sponsors/yourusername)
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-pink.svg)](https://github.com/sponsors/avisual)
 
 Sponsor tiers:
 - **$3/month** — Supporter badge

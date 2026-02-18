@@ -23,13 +23,13 @@ import {
   openDb, closeDb, retrieve, bumpActivations, wireCoOccurrences,
   getStats, generateEmbeddings, embeddingToBlob, blobToEmbedding,
   getMeta, setMeta, DEFAULT_DB_PATH,
-} from "./hebbian-db.mjs";
+} from "../lib/db.mjs";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 
 const DEFAULTS = {
   dbPath: DEFAULT_DB_PATH,
-  sessionExtractor: join(homedir(), "claudia/scripts/hebbian-session-extractor-v2.mjs"),
+  sessionExtractor: null, // Optional: path to session extractor script for auto-extraction
   maxContextTokens: 800,
   maxEntries: 30,
   semanticWeight: 0.6,
