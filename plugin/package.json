@@ -1,0 +1,14 @@
+{
+  "name": "@openclaw/hebbian-hook",
+  "version": "3.0.0",
+  "description": "Hebbian memory with SQLite + semantic embeddings: context injection, retrieval bumps, session mining",
+  "type": "module",
+  "openclaw": {
+    "extensions": [
+      "./index.mjs"
+    ]
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.6.2"
+  }
+}

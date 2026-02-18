@@ -1,0 +1,52 @@
+[
+  {
+    "id": "example-001",
+    "domain": "web-automation",
+    "pattern_type": "rule",
+    "title": "Always peek before clicking",
+    "detail": "When using browser automation, always call peek() before the first action on a new page to understand the UI structure.",
+    "source": "manual",
+    "activation": 12.5,
+    "tags": ["automation", "browser", "best-practice"]
+  },
+  {
+    "id": "example-002",
+    "domain": "web-automation",
+    "pattern_type": "correction",
+    "title": "Checkboxes require explicit clicks",
+    "detail": "Checkboxes are click actions, not typing actions. Every checkbox must be explicitly clicked even if it appears checked visually.",
+    "source": "failure-learning",
+    "activation": 8.3,
+    "tags": ["forms", "checkboxes", "common-mistake"]
+  },
+  {
+    "id": "example-003",
+    "domain": "api-design",
+    "pattern_type": "fact",
+    "title": "REST PUT vs PATCH semantics",
+    "detail": "PUT replaces the entire resource; PATCH applies partial updates. Use PATCH for incremental changes to avoid overwriting unmodified fields.",
+    "source": "curated-knowledge",
+    "activation": 5.2,
+    "tags": ["rest", "http", "api"]
+  },
+  {
+    "id": "example-004",
+    "domain": "performance",
+    "pattern_type": "benchmark",
+    "title": "SQLite WAL mode performance",
+    "detail": "Enabling WAL mode (Write-Ahead Logging) improves concurrent read performance by 2-3x and eliminates most lock contention.",
+    "source": "testing",
+    "activation": 3.8,
+    "tags": ["sqlite", "optimization", "database"]
+  },
+  {
+    "id": "example-005",
+    "domain": "debugging",
+    "pattern_type": "solution",
+    "title": "IPv6 localhost resolution issue",
+    "detail": "When fetch() fails with 'connection refused' on localhost:XXXX but curl works, check if the service binds only IPv4 (127.0.0.1) while Node.js resolves localhost to IPv6 (::1) first. Use explicit 127.0.0.1 instead of localhost.",
+    "source": "bug-fix",
+    "activation": 7.1,
+    "tags": ["networking", "ipv6", "node", "debugging"]
+  }
+]

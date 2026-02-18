@@ -1,0 +1,27 @@
+{
+  "name": "hebbian-memory-system",
+  "version": "1.0.0",
+  "description": "Biologically-inspired persistent memory for AI agents",
+  "type": "module",
+  "author": "John Harrison",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/hebbian-memory-system.git"
+  },
+  "keywords": [
+    "ai",
+    "memory",
+    "hebbian",
+    "semantic-search",
+    "embeddings",
+    "agent",
+    "openclaw"
+  ],
+  "dependencies": {
+    "better-sqlite3": "^12.6.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

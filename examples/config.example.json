@@ -1,0 +1,31 @@
+{
+  "dbPath": "~/.hebbian/hebbian.db",
+  "embedModel": "nomic-embed-text",
+  "ollamaUrl": "http://127.0.0.1:11434",
+  "retrieval": {
+    "maxContextTokens": 800,
+    "maxEntries": 30,
+    "semanticWeight": 0.6,
+    "activationWeight": 0.3,
+    "domainWeight": 0.1,
+    "minSimilarity": 0.3
+  },
+  "decay": {
+    "dailyFactor": 0.9995,
+    "pruneThreshold": 0.1
+  },
+  "extraction": {
+    "sessionExtractor": {
+      "minThinkingBlockLength": 100,
+      "semanticDedup": {
+        "enabled": true,
+        "threshold": 0.92
+      }
+    },
+    "reasoningExtractor": {
+      "llmModel": "qwen2.5-coder:7b",
+      "maxInsightsPerBlock": 2,
+      "minDetailLength": 20
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "hebbian-hook",
+  "name": "Hebbian Memory Hook",
+  "description": "SQLite + semantic embedding memory system. Per-turn context injection with combined scoring (semantic similarity + activation + domain match), token-budgeted retrieval, retrieval bumps, and session mining.",
+  "version": "3.0.0",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "dbPath": {
+        "type": "string",
+        "description": "Path to hebbian.db SQLite database"
+      },
+      "maxContextTokens": {
+        "type": "number",
+        "description": "Maximum tokens for injected context (default: 800)"
+      },
+      "maxEntries": {
+        "type": "number",
+        "description": "Maximum pattern entries to inject (default: 30)"
+      },
+      "semanticWeight": {
+        "type": "number",
+        "description": "Weight for embedding similarity in scoring (default: 0.6)"
+      },
+      "activationWeight": {
+        "type": "number",
+        "description": "Weight for activation in scoring (default: 0.3)"
+      },
+      "domainWeight": {
+        "type": "number",
+        "description": "Weight for domain keyword match bonus (default: 0.1)"
+      },
+      "embeddingCacheTtlMs": {
+        "type": "number",
+        "description": "TTL for query embedding cache in ms (default: 300000)"
+      },
+      "sessionExtractor": {
+        "type": "string",
+        "description": "Path to session mining script"
+      }
+    }
+  }
+}
