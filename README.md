@@ -73,7 +73,9 @@ Rules and corrections rank higher; vague "general" entries rank lower.
 ### Prerequisites
 - Node.js 18+
 - SQLite 3
-- Ollama with `nomic-embed-text` model (for embeddings)
+- Ollama with the following models:
+  - **`nomic-embed-text`** (required for semantic embeddings)
+  - **`qwen2.5-coder:7b`** (required for reasoning extraction only)
 - OpenClaw (for plugin integration)
 
 ### Installation
@@ -94,8 +96,11 @@ openclaw plugin add ./plugin
 # Initialize the database
 node cli/init-db.mjs
 
-# Pull the embedding model
+# Pull the embedding model (required)
 ollama pull nomic-embed-text
+
+# Pull the reasoning model (optional, only if using reasoning extractor)
+ollama pull qwen2.5-coder:7b
 ```
 
 #### Option 2: Plugin Only
@@ -357,7 +362,14 @@ Create `~/.hebbian/config.json`:
 
 ### Reasoning Extraction
 
-The `reasoning-extractor` uses a local LLM (qwen2.5-coder:7b via Ollama) to extract insights from AI assistant thinking blocks:
+The `reasoning-extractor` uses a local LLM to extract insights from AI assistant thinking blocks. **Requires `qwen2.5-coder:7b` model** (hardcoded in the extractor):
+
+```bash
+# Install the model first
+ollama pull qwen2.5-coder:7b
+```
+
+Then run the extractor:
 
 ```bash
 node extractors/reasoning-extractor.mjs \
