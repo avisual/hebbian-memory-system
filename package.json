@@ -1,14 +1,35 @@
 {
   "name": "hebbian-memory-system",
   "version": "1.0.0",
-  "description": "Biologically-inspired persistent memory for AI agents",
+  "description": "Biologically-inspired persistent memory for AI agents with semantic retrieval and activation-based ranking",
   "type": "module",
-  "author": "John Harrison",
+  "main": "./lib/db.mjs",
+  "exports": {
+    ".": "./lib/db.mjs",
+    "./plugin": "./plugin/index.mjs",
+    "./lib": "./lib/db.mjs",
+    "./cli/*": "./cli/*.mjs",
+    "./extractors/*": "./extractors/*.mjs"
+  },
+  "bin": {
+    "hebbian-init": "./cli/init-db.mjs",
+    "hebbian-search": "./cli/search.mjs",
+    "hebbian-stats": "./cli/stats.mjs",
+    "hebbian-top": "./cli/top.mjs"
+  },
+  "author": {
+    "name": "John Harrison",
+    "url": "https://github.com/avisual"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/avisual/hebbian-memory-system.git"
   },
+  "bugs": {
+    "url": "https://github.com/avisual/hebbian-memory-system/issues"
+  },
+  "homepage": "https://github.com/avisual/hebbian-memory-system#readme",
   "keywords": [
     "ai",
     "memory",
@@ -16,12 +37,37 @@
     "semantic-search",
     "embeddings",
     "agent",
-    "openclaw"
+    "openclaw",
+    "sqlite",
+    "ollama",
+    "vector-search",
+    "activation",
+    "persistent-memory",
+    "ai-agent",
+    "long-term-memory"
   ],
   "dependencies": {
     "better-sqlite3": "^12.6.2"
   },
+  "peerDependencies": {
+    "openclaw": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "files": [
+    "lib/",
+    "plugin/",
+    "cli/",
+    "extractors/",
+    "examples/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ]
 }

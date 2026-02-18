@@ -74,16 +74,49 @@ Rules and corrections rank higher; vague "general" entries rank lower.
 - Node.js 18+
 - SQLite 3
 - Ollama with `nomic-embed-text` model (for embeddings)
+- OpenClaw (for plugin integration)
 
 ### Installation
+
+Choose the installation method that fits your needs:
+
+#### Option 1: Full Toolkit (Recommended)
+Complete system with plugin, extractors, and CLI tools:
 
 ```bash
 git clone https://github.com/avisual/hebbian-memory-system.git
 cd hebbian-memory-system
 npm install
+
+# Install the plugin into OpenClaw
+openclaw plugin add ./plugin
+
+# Initialize the database
+node cli/init-db.mjs
+
+# Pull the embedding model
+ollama pull nomic-embed-text
 ```
 
-### Initialize Database
+#### Option 2: Plugin Only
+If you already have a populated database or custom extractors:
+
+```bash
+npm install hebbian-memory-system
+openclaw plugin add node_modules/hebbian-memory-system/plugin
+```
+
+#### Option 3: From npm (Coming Soon)
+```bash
+npm install -g hebbian-memory-system
+openclaw plugin install hebbian-hook
+```
+
+### Populating the Database
+
+The plugin retrieves patterns from the database. You need to populate it first:
+
+#### 1. Initialize
 
 ```bash
 node cli/init-db.mjs
@@ -91,17 +124,37 @@ node cli/init-db.mjs
 
 This creates `~/.hebbian/hebbian.db` with the schema.
 
-### Extract from Markdown Files
+#### 2. Extract from Your Knowledge Base
 
+From markdown files:
 ```bash
-# Scan your knowledge base
+# Scan what would be extracted
 node extractors/atomize.mjs scan ~/my-notes/*.md
 
 # Extract patterns into database
 node extractors/atomize.mjs extract ~/my-notes/*.md
 ```
 
-### Retrieve Patterns
+From OpenClaw session transcripts:
+```bash
+# Extract from recent sessions
+node extractors/session-extractor.mjs --recent
+
+# Extract from all sessions
+node extractors/session-extractor.mjs --all
+
+# Extract from specific session
+node extractors/session-extractor.mjs path/to/session.jsonl
+```
+
+From AI reasoning blocks (requires Ollama with qwen2.5-coder:7b):
+```bash
+node extractors/reasoning-extractor.mjs \
+  --sessions ~/.openclaw/agents/main/sessions/ \
+  --limit 1000
+```
+
+#### 3. Verify
 
 ```bash
 # Search for relevant patterns
@@ -109,27 +162,95 @@ node cli/search.mjs "how to handle forms"
 
 # View activation stats
 node cli/stats.mjs
+
+# View top patterns
+node cli/top.mjs 20
 ```
 
 ## Usage Patterns
+
+### Quick Start for OpenClaw Users
+
+Complete setup in 5 minutes:
+
+```bash
+# 1. Clone and install
+git clone https://github.com/avisual/hebbian-memory-system.git
+cd hebbian-memory-system
+npm install
+
+# 2. Initialize database
+node cli/init-db.mjs
+
+# 3. Pull embedding model
+ollama pull nomic-embed-text
+
+# 4. Populate from your existing knowledge
+node extractors/atomize.mjs extract ~/.openclaw/workspace/memory/**/*.md
+node extractors/session-extractor.mjs --recent
+
+# 5. Install plugin
+openclaw plugin add ./plugin
+
+# 6. Enable in config (openclaw.json)
+# Add "hebbian-hook" to plugins.allow
+# Add entry to plugins.entries (see below)
+
+# 7. Restart
+openclaw gateway restart
+```
+
+Now your agent has persistent memory that learns from every conversation.
+
+---
 
 ### For OpenClaw Users
 
 The plugin automatically injects relevant memories into your agent's context on every request.
 
-1. Copy `plugin/` contents to `~/.openclaw/extensions/hebbian-hook/`
-2. Enable in `openclaw.json`:
+#### Installation (Full Toolkit)
+
+```bash
+git clone https://github.com/avisual/hebbian-memory-system.git
+cd hebbian-memory-system
+npm install
+openclaw plugin add ./plugin
+```
+
+#### Enable in OpenClaw Config
+
+Add to your `openclaw.json`:
+
 ```json
 {
   "plugins": {
     "allow": ["hebbian-hook"],
     "entries": {
-      "hebbian-hook": { "enabled": true }
+      "hebbian-hook": {
+        "enabled": true,
+        "config": {
+          "maxContextTokens": 800,
+          "semanticWeight": 0.6,
+          "activationWeight": 0.3,
+          "domainWeight": 0.1
+        }
+      }
     }
   }
 }
 ```
-3. Restart gateway
+
+#### Restart Gateway
+
+```bash
+openclaw gateway restart
+```
+
+The plugin will now:
+- ✅ Inject relevant patterns into every agent turn
+- ✅ Bump activation scores when patterns are used
+- ✅ Build co-occurrence links between related patterns
+- ✅ Mine new patterns from session transcripts (if sessionExtractor configured)
 
 ### Standalone Usage
 
